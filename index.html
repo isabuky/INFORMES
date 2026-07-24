@@ -502,6 +502,7 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
 
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
         <button class="ios-btn ios-btn-primary" id="btn-guardar" onclick="guardarInforme()">💾 Guardar</button>
+        <button class="ios-btn ios-btn-secondary light" id="btn-cancelar" style="display:none;" onclick="cancelarEdicion()">❌ Cancelar</button>
         <button class="ios-btn ios-btn-danger" onclick="confirmarEliminar()" id="btn-eliminar" style="display:none;">🗑️ Eliminar</button>
       </div>
     </div>
@@ -1272,6 +1273,7 @@ function bloquearFormulario(){
   btn.classList.remove('ios-btn-primary');
   btn.classList.add('ios-btn-secondary','light');
   btn.onclick = habilitarEdicion;
+  document.getElementById('btn-cancelar').style.display = 'none';
 }
 function desbloquearFormulario(){
   camposFormulario().forEach(el=>{ if(el) el.disabled = false; });
@@ -1284,6 +1286,7 @@ function desbloquearFormulario(){
   btn.classList.remove('ios-btn-secondary','light');
   btn.classList.add('ios-btn-primary');
   btn.onclick = guardarInforme;
+  document.getElementById('btn-cancelar').style.display = informeActualId ? 'inline-flex' : 'none';
 }
 function habilitarEdicion(){
   leerFormAEstado();
@@ -1292,6 +1295,19 @@ function habilitarEdicion(){
   desbloquearFormulario();
   actualizarPreview();
   toast('✏️ Edición habilitada — nueva Rev. ' + actual.rev);
+}
+
+function cancelarEdicion(){
+  if(!informeActualId){
+    actual = estadoVacio(actual.tipo || 'informe');
+  } else {
+    const inf = informes.find(i=>i.id===informeActualId);
+    if(inf) actual = JSON.parse(JSON.stringify(inf));
+  }
+  cargarFormDesdeEstado(true);
+  bloquearFormulario();
+  actualizarPreview();
+  toast('↩️ Edición cancelada');
 }
 
 /* ===================== CRUD INFORMES ===================== */
@@ -1848,15 +1864,24 @@ function nombreArchivoInforme(){
   let nombre;
   if(actual.tipo === 'ratificacion'){
     const exp = (actual.ratifExp || 'SIN-EXPEDIENTE').trim();
-    nombre = `Ratificacion_boletin_denuncia_${exp}`;
+    nombre = `Ratificación boletín de denuncia ${exp}`;
+  } else if(actual.tipo === 'autorizacion_redes'){
+    const pesquero = (actual.arPesquero || 'SIN PESQUERO').trim();
+    nombre = `Autorización redes ${pesquero}`;
+  } else if(actual.tipo === 'entrega_llaves'){
+    const empresa = (actual.elEmpresa || 'SIN EMPRESA').trim();
+    nombre = `Entrega de llaves ${empresa}`;
+  } else if(actual.tipo === 'reparacion_maquinaria'){
+    const maquinaria = (actual.rpMaquinaria || '').trim();
+    const empresa = (actual.rpEmpresa || '').trim();
+    const empresaRep = (actual.rpEmpresaRep || '').trim();
+    nombre = `Autorización de reparación ${maquinaria} de ${empresa} por ${empresaRep}`;
   } else {
     const numero = (actual.numero || '0000').padStart(4,'0');
     const anio = actual.anio || anioActualCorto();
-    const rev = actual.rev || '0';
     const asunto = (actual.asunto || 'SIN ASUNTO').trim();
-    nombre = `Informe ${numero}-${anio} Rev.${rev} ${asunto}`;
+    nombre = `Informe ${numero}-${anio} ${asunto}`;
   }
-  // Sanitiza caracteres no válidos en nombres de archivo (p.ej. la barra "/")
   nombre = nombre.replace(/[\\/:*?"<>|]+/g,'-').replace(/\s+/g,' ').trim();
   return nombre.slice(0,150);
 }
@@ -1934,6 +1959,28 @@ async function generarPDFArchivo(){
       }
     }
 
+    if(window.showSaveFilePicker){
+      try{
+        ocultarCarga();
+        const handle = await window.showSaveFilePicker({
+          suggestedName: nombreArchivo,
+          types: [{description:'PDF', accept:{'application/pdf':['.pdf']}}]
+        });
+        mostrarCarga('Guardando PDF…');
+        const writable = await handle.createWritable();
+        await writable.write(pdfBlob);
+        await writable.close();
+        toast('✅ PDF guardado');
+        return;
+      }catch(e){
+        if(e.name === 'AbortError'){
+          ocultarCarga();
+          return;
+        }
+        mostrarCarga('Guardando PDF…');
+      }
+    }
+
     if(window.showDirectoryPicker){
       try{
         ocultarCarga();
@@ -1955,7 +2002,14 @@ async function generarPDFArchivo(){
       }
     }
 
-    pdf.save(nombreArchivo);
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = nombreArchivo;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
     toast('✅ PDF descargado');
   }catch(err){
     console.error(err);
