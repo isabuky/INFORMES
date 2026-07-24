@@ -543,8 +543,8 @@ function configDefault(){
   return {
     autorPorDefecto: '',
     primerFdo: '',
-    segundoFdo: '',
-    tercerFdo: '',
+    segundoFdo: '959',
+    tercerFdo: 'Pablo Crabiffose',
     mostrarCabeceraInforme: true
   };
 }
@@ -1367,6 +1367,10 @@ function abrirModalNuevaRatificacion(){
           <label class="ios-label-field">N.º de agente</label>
           <input type="text" class="ios-input" id="rf-agente" placeholder="959" value="${cfgValor('primerFdo') || ''}">
         </div>
+        <div class="field">
+          <label class="ios-label-field">Fecha</label>
+          <input type="date" class="ios-input" id="rf-fecha" value="${new Date().toISOString().slice(0,10)}">
+        </div>
         <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
           <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
           <button class="ios-btn ios-btn-primary" id="rf-crear-btn">Crear</button>
@@ -1376,17 +1380,19 @@ function abrirModalNuevaRatificacion(){
   document.getElementById('rf-crear-btn').onclick = ()=>{
     const exp = document.getElementById('rf-exp').value.trim();
     const agente = document.getElementById('rf-agente').value.trim();
+    const fecha = document.getElementById('rf-fecha').value;
     if(!exp || !agente){ toast('⚠️ Completa ambos campos'); return; }
-    crearRatificacionNueva(exp, agente);
+    crearRatificacionNueva(exp, agente, fecha);
   };
   document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
 }
 
-function crearRatificacionNueva(exp, agente){
+function crearRatificacionNueva(exp, agente, fecha){
   cerrarModal();
   actual = estadoVacio('ratificacion');
   actual.ratifExp = exp;
   actual.ratifAgente = agente;
+  actual.fecha = fecha || new Date().toISOString().slice(0,10);
   informeActualId = null;
   cargarFormDesdeEstado(false);
   cambiarTab('editar');
@@ -1420,6 +1426,10 @@ function abrirModalNuevaAutorizacionRedes(){
           <label class="ios-label-field">Fecha y hora fin</label>
           <input type="datetime-local" class="ios-input" id="ar-fecha-fin">
         </div>
+        <div class="field">
+          <label class="ios-label-field">Fecha del informe</label>
+          <input type="date" class="ios-input" id="ar-fecha-informe" value="${new Date().toISOString().slice(0,10)}">
+        </div>
         <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
           <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
           <button class="ios-btn ios-btn-primary" id="ar-crear-btn">Crear</button>
@@ -1437,8 +1447,9 @@ function abrirModalNuevaAutorizacionRedes(){
     const pesquero = document.getElementById('ar-pesquero').value.trim();
     const fechaInicio = document.getElementById('ar-fecha-inicio').value;
     const fechaFin = document.getElementById('ar-fecha-fin').value;
+    const fecha = document.getElementById('ar-fecha-informe').value;
     if(!nombre || !dni || !pesquero || !fechaInicio || !fechaFin){ toast('⚠️ Completa todos los campos'); return; }
-    crearAutorizacionRedesNueva({nombre, dni, pesquero, fechaInicio, fechaFin});
+    crearAutorizacionRedesNueva({nombre, dni, pesquero, fechaInicio, fechaFin, fecha});
   };
   document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
 }
@@ -1456,6 +1467,7 @@ function crearAutorizacionRedesNueva(datos){
   actual.arPesquero = datos.pesquero;
   actual.arFechaInicio = datos.fechaInicio;
   actual.arFechaFin = datos.fechaFin;
+  actual.fecha = datos.fecha || new Date().toISOString().slice(0,10);
   informeActualId = null;
   cargarFormDesdeEstado(false);
   cambiarTab('editar');
@@ -1489,6 +1501,10 @@ function abrirModalNuevaEntregaLlaves(){
           <label class="ios-label-field">Cantidad de llaves</label>
           <input type="text" class="ios-input" id="el-cantidad" placeholder="Ej: 2">
         </div>
+        <div class="field">
+          <label class="ios-label-field">Fecha del informe</label>
+          <input type="date" class="ios-input" id="el-fecha-informe" value="${new Date().toISOString().slice(0,10)}">
+        </div>
         <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
           <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
           <button class="ios-btn ios-btn-primary" id="el-crear-btn">Crear</button>
@@ -1501,8 +1517,9 @@ function abrirModalNuevaEntregaLlaves(){
     const empresa = document.getElementById('el-empresa').value.trim();
     const direccion = document.getElementById('el-direccion').value.trim();
     const cantidad = document.getElementById('el-cantidad').value.trim();
+    const fecha = document.getElementById('el-fecha-informe').value;
     if(!nombre || !dni || !empresa || !direccion || !cantidad){ toast('⚠️ Completa todos los campos'); return; }
-    crearEntregaLlavesNueva({nombre, dni, empresa, direccion, cantidad});
+    crearEntregaLlavesNueva({nombre, dni, empresa, direccion, cantidad, fecha});
   };
   document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
 }
@@ -1515,6 +1532,7 @@ function crearEntregaLlavesNueva(datos){
   actual.elEmpresa = datos.empresa;
   actual.elDireccion = datos.direccion;
   actual.elCantidad = datos.cantidad;
+  actual.fecha = datos.fecha || new Date().toISOString().slice(0,10);
   informeActualId = null;
   cargarFormDesdeEstado(false);
   cambiarTab('editar');
@@ -1595,6 +1613,10 @@ function abrirModalNuevaReparacion(){
           <label class="ios-label-field">Fecha estimada de finalización</label>
           <input type="date" class="ios-input" id="rp-fecha-fin">
         </div>
+        <div class="field">
+          <label class="ios-label-field">Fecha del informe</label>
+          <input type="date" class="ios-input" id="rp-fecha-informe" value="${new Date().toISOString().slice(0,10)}">
+        </div>
         <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
           <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
           <button class="ios-btn ios-btn-primary" id="rp-crear-btn">Crear</button>
@@ -1618,7 +1640,8 @@ function abrirModalNuevaReparacion(){
       causa: document.getElementById('rp-causa').value.trim(),
       trabajos: document.getElementById('rp-trabajos').value.trim(),
       medios: document.getElementById('rp-medios').value.trim(),
-      fechaFin: document.getElementById('rp-fecha-fin').value
+      fechaFin: document.getElementById('rp-fecha-fin').value,
+      fecha: document.getElementById('rp-fecha-informe').value
     };
     if(!datos.nombre || !datos.empresa || !datos.maquinaria){ toast('⚠️ Completa al menos nombre, empresa y maquinaria'); return; }
     crearReparacionNueva(datos);
@@ -1645,6 +1668,7 @@ function crearReparacionNueva(datos){
   actual.rpTrabajos = datos.trabajos;
   actual.rpMedios = datos.medios;
   actual.rpFechaFin = datos.fechaFin;
+  actual.fecha = datos.fecha || new Date().toISOString().slice(0,10);
   informeActualId = null;
   cargarFormDesdeEstado(false);
   cambiarTab('editar');
