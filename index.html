@@ -116,6 +116,7 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
 /* PREVIEW (mimic PDF) */
 .preview-doc,.preview-doc *{font-family:"Courier New",Courier,monospace !important;}
 .preview-doc{background:#fff;padding:36px 40px;color:#111;font-size:13px;line-height:1.55;
+  display:flex;flex-direction:column;min-height:80vh;
   border-radius:var(--ios-radius);box-shadow:var(--ios-shadow-lg);}
 .preview-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
 .preview-logo-left img{height:110px;}
@@ -135,7 +136,7 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
 .preview-firma{text-align:center;font-size:11px;min-width:150px;}
 .preview-firma .rol{font-weight:700;margin-bottom:40px;}
 .preview-firma .fdo{border-top:1px solid #111;padding-top:4px;}
-.preview-footer{margin-top:30px;border-top:1px solid #ccc;padding-top:6px;font-size:9px;color:#555;}
+.preview-footer{margin-top:auto;border-top:1px solid #ccc;padding-top:6px;font-size:9px;color:#555;}
 
 .preview-foto-page{margin-top:30px;padding:36px 40px;text-align:center;page-break-before:always;
   border-top:2px solid var(--pp-azul);padding-top:20px;}
@@ -152,6 +153,33 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
 
 .ios-input:disabled,.ios-select:disabled,textarea.ios-input:disabled,.digit-box:disabled{
   background:#eef1f5;color:#64748b;cursor:not-allowed;opacity:0.85;}
+
+/* RICH TEXT EDITOR (HECHOS) */
+.rte-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:6px 8px;
+  background:var(--ios-bg);border:0.5px solid var(--ios-separator);border-bottom:none;
+  border-radius:var(--ios-radius-sm) var(--ios-radius-sm) 0 0;transition:opacity var(--ios-transition);}
+.rte-toolbar.rte-disabled{opacity:0.5;pointer-events:none;}
+.rte-group{display:flex;align-items:center;gap:3px;padding:0 6px;border-right:1px solid var(--ios-separator);}
+.rte-group:last-child{border-right:none;}
+.rte-btn{background:#fff;color:var(--ios-label);border:1px solid var(--ios-separator);border-radius:6px;
+  min-width:28px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:13px;padding:0 6px;-webkit-tap-highlight-color:transparent;}
+.rte-btn:hover{background:rgba(37,99,235,0.08);}
+.rte-btn[aria-pressed="true"]{background:var(--ios-blue);color:#fff;border-color:var(--ios-blue);}
+.rte-btn.rte-btn-danger{color:var(--ios-red);border-color:rgba(220,38,38,0.35);font-weight:600;}
+.rte-btn.rte-btn-danger:hover{background:rgba(220,38,38,0.08);}
+.rte-select{background:#fff;color:var(--ios-label);border:1px solid var(--ios-separator);border-radius:6px;
+  font-size:12.5px;padding:4px 6px;max-width:110px;cursor:pointer;}
+.rte-color{width:28px;height:28px;padding:2px;border-radius:6px;border:1px solid var(--ios-separator);
+  background:#fff;cursor:pointer;}
+.rte-editor{min-height:220px;border-top:none;border-radius:0 0 var(--ios-radius-sm) var(--ios-radius-sm);
+  line-height:1.5;overflow-y:auto;}
+.rte-editor:empty:before{content:attr(data-placeholder);color:#94a3b8;}
+.rte-editor p{margin:0 0 10px;}
+.rte-editor:focus{outline:none;}
+.rte-editor[contenteditable="false"]{background:#eef1f5;color:#64748b;cursor:not-allowed;opacity:0.85;}
+.rte-editor img{max-width:100%;border-radius:4px;}
+.rte-editor a{color:var(--ios-blue);}
 
 /* LOADING OVERLAY */
 #loading-overlay{position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(2px);z-index:95;
@@ -177,10 +205,10 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
   body > *:not(#print-area){display:none !important;}
   #print-area{display:block !important;}
   #print-area *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
-  @page{margin:16mm 14mm;}
+  @page{margin:16mm 14mm;size:portrait;}
 }
 .print-doc,.print-doc *{font-family:"Courier New",Courier,monospace !important;}
-.print-doc{color:#111;font-size:12.5px;line-height:1.5;}
+.print-doc{color:#111;font-size:12.5px;line-height:1.5;display:flex;flex-direction:column;min-height:100vh;}
 .print-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
 .print-logo-left img{height:100px;}
 .print-logo-right img{height:100px;}
@@ -198,7 +226,7 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
 .print-firma{text-align:center;font-size:10.5px;min-width:140px;}
 .print-firma .rol{font-weight:700;margin-bottom:38px;}
 .print-firma .fdo{border-top:1px solid #111;padding-top:4px;}
-.print-footer{margin-top:26px;border-top:1px solid #999;padding-top:5px;font-size:8.5px;color:#555;}
+.print-footer{margin-top:auto;border-top:1px solid #999;padding-top:5px;font-size:8.5px;color:#555;}
 
 .print-foto-page{margin-top:0;padding:20px 24px;text-align:center;page-break-before:always;}
 .print-foto-title{font-weight:700;font-size:13px;letter-spacing:0.5px;margin-bottom:3px;color:#111;}
@@ -253,6 +281,135 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
     <!-- EDITOR -->
     <div id="tab-editar">
       <div class="ios-card" style="padding:20px;">
+        <div id="campos-ratificacion" style="display:none;">
+          <div class="form-grid">
+            <div class="field">
+              <label class="ios-label-field">N.º de boletín de denuncia</label>
+              <input type="text" class="ios-input" id="f-ratif-exp" placeholder="2026-00000000" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">N.º de agente</label>
+              <input type="text" class="ios-input" id="f-ratif-agente" placeholder="959" oninput="actualizarPreview()">
+            </div>
+          </div>
+        </div>
+        <div id="campos-autorizacion-redes" style="display:none;">
+          <div class="form-grid">
+            <div class="field">
+              <label class="ios-label-field">Nombre</label>
+              <input type="text" class="ios-input" id="f-ar-nombre" placeholder="Nombre completo" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">DNI</label>
+              <input type="text" class="ios-input" id="f-ar-dni" placeholder="72228435-V" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Pesquero</label>
+              <input type="text" class="ios-input" id="f-ar-pesquero" placeholder="Nombre del pesquero" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Fecha y hora inicio</label>
+              <input type="datetime-local" class="ios-input" id="f-ar-fecha-inicio" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Fecha y hora fin</label>
+              <input type="datetime-local" class="ios-input" id="f-ar-fecha-fin" oninput="actualizarPreview()">
+            </div>
+          </div>
+        </div>
+        <div id="campos-entrega-llaves" style="display:none;">
+          <div class="form-grid">
+            <div class="field">
+              <label class="ios-label-field">Nombre</label>
+              <input type="text" class="ios-input" id="f-el-nombre" placeholder="Nombre completo" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">DNI</label>
+              <input type="text" class="ios-input" id="f-el-dni" placeholder="72228435-V" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Empresa</label>
+              <input type="text" class="ios-input" id="f-el-empresa" placeholder="Nombre de la empresa" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Dirección</label>
+              <input type="text" class="ios-input" id="f-el-direccion" placeholder="Domicilio de la empresa" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Cantidad de llaves</label>
+              <input type="text" class="ios-input" id="f-el-cantidad" placeholder="Ej: 2" oninput="actualizarPreview()">
+            </div>
+          </div>
+        </div>
+        <div id="campos-reparacion" style="display:none;">
+          <div class="form-grid">
+            <div class="field">
+              <label class="ios-label-field">Nombre solicitante</label>
+              <input type="text" class="ios-input" id="f-rp-nombre" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">DNI/NIF</label>
+              <input type="text" class="ios-input" id="f-rp-dni" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Empresa</label>
+              <input type="text" class="ios-input" id="f-rp-empresa" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">CIF</label>
+              <input type="text" class="ios-input" id="f-rp-cif" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Teléfono</label>
+              <input type="text" class="ios-input" id="f-rp-tlf" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Población</label>
+              <input type="text" class="ios-input" id="f-rp-poblacion" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Código Postal</label>
+              <input type="text" class="ios-input" id="f-rp-cp" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Empresa reparadora</label>
+              <input type="text" class="ios-input" id="f-rp-empresa-rep" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">CIF reparadora</label>
+              <input type="text" class="ios-input" id="f-rp-cif-rep" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Teléfono reparadora</label>
+              <input type="text" class="ios-input" id="f-rp-tlf-rep" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Maquinaria</label>
+              <input type="text" class="ios-input" id="f-rp-maquinaria" oninput="actualizarPreview()">
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Modelo</label>
+              <input type="text" class="ios-input" id="f-rp-modelo" oninput="actualizarPreview()">
+            </div>
+            <div class="field full">
+              <label class="ios-label-field">Causa</label>
+              <textarea class="ios-input" id="f-rp-causa" rows="2" oninput="actualizarPreview()"></textarea>
+            </div>
+            <div class="field full">
+              <label class="ios-label-field">Trabajos a realizar</label>
+              <textarea class="ios-input" id="f-rp-trabajos" rows="2" oninput="actualizarPreview()"></textarea>
+            </div>
+            <div class="field full">
+              <label class="ios-label-field">Medios anticontaminación</label>
+              <textarea class="ios-input" id="f-rp-medios" rows="2" oninput="actualizarPreview()"></textarea>
+            </div>
+            <div class="field">
+              <label class="ios-label-field">Fecha finalización</label>
+              <input type="date" class="ios-input" id="f-rp-fecha-fin" oninput="actualizarPreview()">
+            </div>
+          </div>
+        </div>
+        <div id="campos-informe">
         <div class="form-grid">
           <div class="field">
             <label class="ios-label-field">Número de informe</label>
@@ -274,7 +431,50 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
           </div>
           <div class="field full">
             <label class="ios-label-field">Hechos</label>
-            <textarea class="ios-input" id="f-hechos" rows="12" placeholder="Redacte aquí el relato de los hechos. Separe los párrafos con una línea en blanco." oninput="actualizarPreview()"></textarea>
+            <div class="rte-toolbar" role="toolbar" aria-label="Formato de texto" id="hechos-toolbar">
+              <div class="rte-group">
+                <button type="button" class="rte-btn" id="hechos-undo" title="Deshacer (Ctrl+Z)">↶</button>
+                <button type="button" class="rte-btn" id="hechos-redo" title="Rehacer (Ctrl+Y)">↷</button>
+              </div>
+              <div class="rte-group">
+                <select class="rte-select" id="hechos-block" title="Estilo de párrafo">
+                  <option value="P">Normal</option>
+                  <option value="H3">Título</option>
+                  <option value="BLOCKQUOTE">Cita</option>
+                </select>
+              </div>
+              <div class="rte-group">
+                <button type="button" class="rte-btn" data-cmd="bold" title="Negrita (Ctrl+B)"><b>B</b></button>
+                <button type="button" class="rte-btn" data-cmd="italic" title="Cursiva (Ctrl+I)"><i>I</i></button>
+                <button type="button" class="rte-btn" data-cmd="underline" title="Subrayado (Ctrl+U)"><u>U</u></button>
+                <button type="button" class="rte-btn" data-cmd="strikeThrough" title="Tachado"><s>S</s></button>
+              </div>
+              <div class="rte-group">
+                <input type="color" class="rte-color" id="hechos-forecolor" title="Color de texto" value="#0f172a">
+              </div>
+              <div class="rte-group">
+                <button type="button" class="rte-btn" data-cmd="justifyLeft" title="Alinear izquierda">⟸</button>
+                <button type="button" class="rte-btn" data-cmd="justifyCenter" title="Centrar">⟺</button>
+                <button type="button" class="rte-btn" data-cmd="justifyRight" title="Alinear derecha">⟹</button>
+                <button type="button" class="rte-btn" data-cmd="justifyFull" title="Justificar">☰</button>
+              </div>
+              <div class="rte-group">
+                <button type="button" class="rte-btn" data-cmd="insertUnorderedList" title="Lista con viñetas">• ―</button>
+                <button type="button" class="rte-btn" data-cmd="insertOrderedList" title="Lista numerada">1.―</button>
+                <button type="button" class="rte-btn" data-cmd="outdent" title="Reducir sangría">⇤</button>
+                <button type="button" class="rte-btn" data-cmd="indent" title="Aumentar sangría">⇥</button>
+              </div>
+              <div class="rte-group">
+                <button type="button" class="rte-btn" id="hechos-link" title="Insertar enlace">🔗</button>
+                <button type="button" class="rte-btn" data-cmd="insertHorizontalRule" title="Línea horizontal">―</button>
+                <button type="button" class="rte-btn" data-cmd="removeFormat" title="Borrar formato">⨯</button>
+              </div>
+              <div class="rte-group">
+                <button type="button" class="rte-btn rte-btn-danger" id="hechos-limpiar" title="Vaciar el cuerpo del informe">🧹 Limpieza</button>
+              </div>
+            </div>
+            <div class="ios-input rte-editor" id="f-hechos" contenteditable="true"
+                 data-placeholder="Redacte aquí el relato de los hechos."></div>
           </div>
           <div class="field">
             <label class="ios-label-field">Lugar</label>
@@ -297,10 +497,11 @@ textarea.ios-input{resize:vertical;line-height:1.5;font-family:inherit;}
         </div>
         <div class="fotos-grid" id="fotos-container"></div>
         <input type="file" id="fotos-input" accept="image/*" style="display:none;" onchange="manejarFoto(event)">
+        </div>
       </div>
 
       <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
-        <button class="ios-btn ios-btn-primary" id="btn-guardar" onclick="guardarInforme()">💾 Guardar (genera PDF)</button>
+        <button class="ios-btn ios-btn-primary" id="btn-guardar" onclick="guardarInforme()">💾 Guardar</button>
         <button class="ios-btn ios-btn-danger" onclick="confirmarEliminar()" id="btn-eliminar" style="display:none;">🗑️ Eliminar</button>
       </div>
     </div>
@@ -343,7 +544,8 @@ function configDefault(){
     autorPorDefecto: '',
     primerFdo: '',
     segundoFdo: '',
-    tercerFdo: ''
+    tercerFdo: '',
+    mostrarCabeceraInforme: true
   };
 }
 function cfgValor(key){
@@ -377,6 +579,11 @@ function abrirConfig(){
           <label class="ios-label-field">Tercer firmante</label>
           <input type="text" class="ios-input" id="cfg-fdo3" placeholder="Ej: 952" value="${escapeHtml(c.tercerFdo || d.tercerFdo)}">
         </div>
+        <div class="section-title" style="margin-top:4px;"><span>Cabecera del documento</span></div>
+        <div class="field" style="display:flex;align-items:center;gap:10px;">
+          <input type="checkbox" id="cfg-mostrar-cabecera" style="width:20px;height:20px;accent-color:var(--ios-green);cursor:pointer;flex-shrink:0;" ${(c.mostrarCabeceraInforme !== undefined ? c.mostrarCabeceraInforme : d.mostrarCabeceraInforme) ? 'checked' : ''}>
+          <label class="ios-label-field" style="margin-bottom:0;text-transform:none;letter-spacing:normal;font-weight:500;" for="cfg-mostrar-cabecera">Mostrar recuadro "INFORME N° / Rev" en la cabecera</label>
+        </div>
         <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
           <button class="ios-btn ios-btn-secondary light" onclick="cerrarModal()">Cancelar</button>
           <button class="ios-btn ios-btn-primary" id="cfg-guardar-btn">Guardar</button>
@@ -389,13 +596,14 @@ function abrirConfig(){
       autorPorDefecto: document.getElementById('cfg-autor').value.trim(),
       primerFdo: document.getElementById('cfg-fdo1').value.trim(),
       segundoFdo: document.getElementById('cfg-fdo2').value.trim(),
-      tercerFdo: document.getElementById('cfg-fdo3').value.trim()
+      tercerFdo: document.getElementById('cfg-fdo3').value.trim(),
+      mostrarCabeceraInforme: document.getElementById('cfg-mostrar-cabecera').checked
     };
     guardarConfig(nueva);
     cerrarModal();
+    actualizarPreview();
     toast('✅ Configuración guardada');
   };
-  document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
 }
 
 function nuevoId(){ return 'inf_' + Date.now() + '_' + Math.random().toString(36).slice(2,8); }
@@ -410,20 +618,29 @@ function siguienteNumero(anio){
   return String(max+1).padStart(4,'0');
 }
 
-function estadoVacio(){
+function estadoVacio(tipo){
+  tipo = tipo || 'informe';
   const anio = anioActualCorto();
   return {
     id: nuevoId(),
+    tipo: tipo,
     numero: siguienteNumero(anio), anio: anio, rev:'0',
     de: cfgValor('autorPorDefecto'),
     asunto:'', hechos:'',
-    lugar:'El Musel', fecha:new Date().toISOString().slice(0,10),
+    lugar: tipo==='ratificacion' ? 'Gijón' : 'El Musel',
+    fecha:new Date().toISOString().slice(0,10),
     firmantes:[
       {rol:'Jefe de Servicio', fdo: cfgValor('primerFdo'), activo:true},
       {rol:'Responsable de Servicio', fdo: cfgValor('segundoFdo'), activo:true},
       {rol:'Jefe del Departamento de Seguridad', fdo: cfgValor('tercerFdo'), activo:true}
     ],
     fotos:[],
+    ratifExp:'', ratifAgente: cfgValor('primerFdo') || '',
+    arNombre:'', arDni:'', arPesquero:'', arFechaInicio:'', arFechaFin:'',
+    elNombre:'', elDni:'', elEmpresa:'', elDireccion:'', elCantidad:'',
+    rpNombre:'', rpDni:'', rpEmpresa:'', rpCif:'', rpTlf:'', rpPoblacion:'', rpCp:'',
+    rpEmpresaRep:'', rpCifRep:'', rpTlfRep:'', rpMaquinaria:'', rpModelo:'',
+    rpCausa:'', rpTrabajos:'', rpMedios:'', rpFechaFin:'',
     creado: Date.now()
   };
 }
@@ -445,6 +662,11 @@ function toast(msg){
 function escapeHtml(str){
   return (str||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+function stripHtml(html){
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html || '';
+  return tmp.textContent || tmp.innerText || '';
+}
 function fechaLarga(iso){
   if(!iso) return '';
   const meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -464,9 +686,46 @@ function cargarFormDesdeEstado(bloqueado){
   document.getElementById('f-rev').value = actual.rev;
   document.getElementById('f-de').value = actual.de;
   document.getElementById('f-asunto').value = actual.asunto;
-  document.getElementById('f-hechos').value = actual.hechos;
+  document.getElementById('f-hechos').innerHTML = actual.hechos || '';
   document.getElementById('f-lugar').value = actual.lugar;
   document.getElementById('f-fecha').value = actual.fecha;
+  document.getElementById('f-ratif-exp').value = actual.ratifExp || '';
+  document.getElementById('f-ratif-agente').value = actual.ratifAgente || '';
+  document.getElementById('f-ar-nombre').value = actual.arNombre || '';
+  document.getElementById('f-ar-dni').value = actual.arDni || '';
+  document.getElementById('f-ar-pesquero').value = actual.arPesquero || '';
+  document.getElementById('f-ar-fecha-inicio').value = actual.arFechaInicio || '';
+  document.getElementById('f-ar-fecha-fin').value = actual.arFechaFin || '';
+  document.getElementById('f-el-nombre').value = actual.elNombre || '';
+  document.getElementById('f-el-dni').value = actual.elDni || '';
+  document.getElementById('f-el-empresa').value = actual.elEmpresa || '';
+  document.getElementById('f-el-direccion').value = actual.elDireccion || '';
+  document.getElementById('f-el-cantidad').value = actual.elCantidad || '';
+  document.getElementById('f-rp-nombre').value = actual.rpNombre || '';
+  document.getElementById('f-rp-dni').value = actual.rpDni || '';
+  document.getElementById('f-rp-empresa').value = actual.rpEmpresa || '';
+  document.getElementById('f-rp-cif').value = actual.rpCif || '';
+  document.getElementById('f-rp-tlf').value = actual.rpTlf || '';
+  document.getElementById('f-rp-poblacion').value = actual.rpPoblacion || '';
+  document.getElementById('f-rp-cp').value = actual.rpCp || '';
+  document.getElementById('f-rp-empresa-rep').value = actual.rpEmpresaRep || '';
+  document.getElementById('f-rp-cif-rep').value = actual.rpCifRep || '';
+  document.getElementById('f-rp-tlf-rep').value = actual.rpTlfRep || '';
+  document.getElementById('f-rp-maquinaria').value = actual.rpMaquinaria || '';
+  document.getElementById('f-rp-modelo').value = actual.rpModelo || '';
+  document.getElementById('f-rp-causa').value = actual.rpCausa || '';
+  document.getElementById('f-rp-trabajos').value = actual.rpTrabajos || '';
+  document.getElementById('f-rp-medios').value = actual.rpMedios || '';
+  document.getElementById('f-rp-fecha-fin').value = actual.rpFechaFin || '';
+  const esRatificacion = actual.tipo === 'ratificacion';
+  const esAutorizacionRedes = actual.tipo === 'autorizacion_redes';
+  const esEntregaLlaves = actual.tipo === 'entrega_llaves';
+  const esReparacion = actual.tipo === 'reparacion_maquinaria';
+  document.getElementById('campos-informe').style.display = (esRatificacion || esAutorizacionRedes || esEntregaLlaves || esReparacion) ? 'none' : 'block';
+  document.getElementById('campos-ratificacion').style.display = esRatificacion ? 'block' : 'none';
+  document.getElementById('campos-autorizacion-redes').style.display = esAutorizacionRedes ? 'block' : 'none';
+  document.getElementById('campos-entrega-llaves').style.display = esEntregaLlaves ? 'block' : 'none';
+  document.getElementById('campos-reparacion').style.display = esReparacion ? 'block' : 'none';
   renderFirmantes();
   renderFotos();
   document.getElementById('btn-eliminar').style.display = informeActualId ? 'inline-flex' : 'none';
@@ -479,9 +738,37 @@ function leerFormAEstado(){
   actual.rev = document.getElementById('f-rev').value;
   actual.de = document.getElementById('f-de').value;
   actual.asunto = document.getElementById('f-asunto').value;
-  actual.hechos = document.getElementById('f-hechos').value;
+  actual.hechos = document.getElementById('f-hechos').innerHTML;
   actual.lugar = document.getElementById('f-lugar').value;
   actual.fecha = document.getElementById('f-fecha').value;
+  actual.ratifExp = document.getElementById('f-ratif-exp').value;
+  actual.ratifAgente = document.getElementById('f-ratif-agente').value;
+  actual.arNombre = document.getElementById('f-ar-nombre').value;
+  actual.arDni = document.getElementById('f-ar-dni').value;
+  actual.arPesquero = document.getElementById('f-ar-pesquero').value;
+  actual.arFechaInicio = document.getElementById('f-ar-fecha-inicio').value;
+  actual.arFechaFin = document.getElementById('f-ar-fecha-fin').value;
+  actual.elNombre = document.getElementById('f-el-nombre').value;
+  actual.elDni = document.getElementById('f-el-dni').value;
+  actual.elEmpresa = document.getElementById('f-el-empresa').value;
+  actual.elDireccion = document.getElementById('f-el-direccion').value;
+  actual.elCantidad = document.getElementById('f-el-cantidad').value;
+  actual.rpNombre = document.getElementById('f-rp-nombre').value;
+  actual.rpDni = document.getElementById('f-rp-dni').value;
+  actual.rpEmpresa = document.getElementById('f-rp-empresa').value;
+  actual.rpCif = document.getElementById('f-rp-cif').value;
+  actual.rpTlf = document.getElementById('f-rp-tlf').value;
+  actual.rpPoblacion = document.getElementById('f-rp-poblacion').value;
+  actual.rpCp = document.getElementById('f-rp-cp').value;
+  actual.rpEmpresaRep = document.getElementById('f-rp-empresa-rep').value;
+  actual.rpCifRep = document.getElementById('f-rp-cif-rep').value;
+  actual.rpTlfRep = document.getElementById('f-rp-tlf-rep').value;
+  actual.rpMaquinaria = document.getElementById('f-rp-maquinaria').value;
+  actual.rpModelo = document.getElementById('f-rp-modelo').value;
+  actual.rpCausa = document.getElementById('f-rp-causa').value;
+  actual.rpTrabajos = document.getElementById('f-rp-trabajos').value;
+  actual.rpMedios = document.getElementById('f-rp-medios').value;
+  actual.rpFechaFin = document.getElementById('f-rp-fecha-fin').value;
   const bloques = document.querySelectorAll('.firmante-block');
   actual.firmantes = Array.from(bloques).map((b,i)=>({
     rol: b.querySelector('.firmante-rol').value,
@@ -489,6 +776,101 @@ function leerFormAEstado(){
     activo: b.querySelector('.firmante-activo') ? b.querySelector('.firmante-activo').checked : (actual.firmantes[i]?.activo !== false)
   }));
 }
+
+/* ===================== EDITOR ENRIQUECIDO DE HECHOS ===================== */
+(function(){
+  const editor = document.getElementById('f-hechos');
+  if(!editor) return;
+
+  try{ document.execCommand('defaultParagraphSeparator', false, 'p'); }catch(e){}
+
+  function focoEditor(){ editor.focus(); }
+
+  function actualizarEstadoToolbarHechos(){
+    document.querySelectorAll('#hechos-toolbar button[data-cmd]').forEach(btn=>{
+      try{ btn.setAttribute('aria-pressed', document.queryCommandState(btn.dataset.cmd)); }catch(e){}
+    });
+  }
+
+  document.querySelectorAll('#hechos-toolbar button[data-cmd]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      focoEditor();
+      document.execCommand(btn.dataset.cmd, false, null);
+      actualizarEstadoToolbarHechos();
+      actualizarPreview();
+    });
+  });
+
+  document.getElementById('hechos-undo').addEventListener('click', ()=>{
+    focoEditor(); document.execCommand('undo'); actualizarPreview();
+  });
+  document.getElementById('hechos-redo').addEventListener('click', ()=>{
+    focoEditor(); document.execCommand('redo'); actualizarPreview();
+  });
+
+  document.getElementById('hechos-limpiar').addEventListener('click', ()=>{
+    if(!editor.innerHTML || !editor.innerHTML.trim()){ return; }
+    mostrarModal({
+      titulo:'Limpiar cuerpo del informe',
+      texto:'Esta acción borrará todo el texto redactado en Hechos. No se puede deshacer. ¿Deseas continuar?',
+      okTexto:'Limpiar', okClase:'ios-btn-danger',
+      onOk: ()=>{
+        editor.innerHTML = '';
+        actual.hechos = '';
+        actualizarPreview();
+        toast('🧹 Cuerpo del informe limpiado');
+      }
+    });
+  });
+
+  document.getElementById('hechos-block').addEventListener('change', (e)=>{
+    focoEditor();
+    document.execCommand('formatBlock', false, e.target.value);
+    actualizarPreview();
+  });
+
+  document.getElementById('hechos-forecolor').addEventListener('input', (e)=>{
+    focoEditor();
+    document.execCommand('foreColor', false, e.target.value);
+    actualizarPreview();
+  });
+
+  document.addEventListener('selectionchange', ()=>{
+    if(document.activeElement === editor) actualizarEstadoToolbarHechos();
+  });
+
+  let rangoGuardado = null;
+  function guardarRango(){
+    const sel = window.getSelection();
+    if(sel.rangeCount && editor.contains(sel.anchorNode)) rangoGuardado = sel.getRangeAt(0).cloneRange();
+  }
+  function restaurarRango(){
+    if(rangoGuardado){
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(rangoGuardado);
+    }
+  }
+  editor.addEventListener('mouseup', guardarRango);
+  editor.addEventListener('keyup', guardarRango);
+
+  document.getElementById('hechos-link').addEventListener('click', ()=>{
+    restaurarRango();
+    const textoSel = window.getSelection().toString();
+    const url = window.prompt('Dirección web del enlace (https://…)', 'https://');
+    if(!url) return;
+    focoEditor();
+    restaurarRango();
+    if(!window.getSelection().toString()){
+      document.execCommand('insertHTML', false, `<a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(textoSel || url)}</a>`);
+    } else {
+      document.execCommand('createLink', false, url);
+    }
+    actualizarPreview();
+  });
+
+  editor.addEventListener('input', actualizarPreview);
+})();
 
 const CARGOS_FIRMANTE = ['Jefe de Servicio','Jefe de Equipo','Agente','Responsable de Servicio','Jefe del Departamento de Seguridad'];
 
@@ -595,11 +977,207 @@ function comprimirImagen(dataUrl, maxAncho, calidad){
 const CABECERA = "data:image/png;base64,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";
 
 /* ===================== PREVIEW / DOCUMENT BUILD ===================== */
+function construirDocumentoRatificacionHTML(cls){
+  const exp = escapeHtml(actual.ratifExp || '');
+  const agente = escapeHtml(actual.ratifAgente || cfgValor('primerFdo') || '');
+  return `
+    <div class="${cls}-doc">
+      <div class="${cls}-header">
+        <div class="${cls}-logo-left"><img src="${CABECERA}" alt="cabecera"></div>
+        <div class="${cls}-logo-right"><img src="${LOGO}" alt="escudo"></div>
+      </div>
+      <div style="text-align:right;margin:0 0 26px;">Exp. Denuncia nº ${exp}</div>
+      <div style="font-weight:700;margin-bottom:18px;">ASUNTO. - RATIFICACION DEL BOLETÍN DE DENUNCIA N.º ${exp}</div>
+      <p style="text-align:justify;margin:0 0 22px;">Por la presente se hace constar que el agente actuante, con número de identificación ${agente} de la policía portuaria se ratifica íntegramente en el contenido del boletín de denuncia ${exp}</p>
+      <p style="margin:0 0 46px;">Lo que se hace constar a los efectos oportunos.</p>
+      <div style="text-align:right;margin:0 0 70px;">En ${escapeHtml(actual.lugar||'Gijón')} ${fechaLarga(actual.fecha)}</div>
+      <div style="text-align:center;">Fdo.: Agente de la Policía Portuaria nº ${agente}</div>
+      <div class="${cls}-footer">
+        Mod. APG 306/05 — Edificio de Servicios Múltiples – El Musel, s/n – 33212 Gijón - Principado de Asturias (España) —
+        Tel.+34 985 17 96 00 – www.puertogijon.es
+      </div>
+    </div>
+  `;
+}
+
+function construirDocumentoAutorizacionRedesHTML(cls){
+  const primerFdo = escapeHtml(actual.firmantes[0]?.fdo || cfgValor('primerFdo') || '');
+  const segundoFdo = escapeHtml(actual.firmantes[1]?.fdo || cfgValor('segundoFdo') || '');
+  const nombre = escapeHtml(actual.arNombre || '');
+  const dni = escapeHtml(actual.arDni || '');
+  const pesquero = escapeHtml(actual.arPesquero || '');
+  const fechaInicio = actual.arFechaInicio ? formatDatetimeLocal(actual.arFechaInicio) : '';
+  const fechaFin = actual.arFechaFin ? formatDatetimeLocal(actual.arFechaFin) : '';
+  return `
+    <div class="${cls}-doc">
+      <div class="${cls}-header">
+        <div class="${cls}-logo-left"><img src="${CABECERA}" alt="cabecera"></div>
+        <div class="${cls}-logo-right"><img src="${LOGO}" alt="escudo"></div>
+      </div>
+      <p style="margin:0 0 6px;">De: <strong>${primerFdo}</strong></p>
+      <p style="margin:0 0 6px;">Para: Responsable de servicio</p>
+      <p style="margin:0 0 14px;">Tema: Autorización para estirar redes en la 6ª Alineación</p>
+      <p style="text-align:justify;margin:0 0 22px;">Sobre las <strong>11:00</strong> horas del día de la fecha, se presenta en el Centro de Control el Sr <strong>${nombre}</strong> con DNI: <strong>${dni}</strong>, en representación del Pesquero <strong>"${pesquero}"</strong>, para pedir permiso para RECOGIDA Y COLOCACIÓN DE REDES en la 6ª Alineación de Rendiello desde las <strong>${fechaInicio}</strong> hasta las <strong>${fechaFin}</strong>, se le informa que solo podrá estirar por el tiempo indispensable para trabajar en ellas y una vez que terminen tienen que dejar la zona limpia y recogida.</p>
+      <div style="text-align:right;margin:0 0 20px;">El Musel, ${fechaLarga(actual.fecha)}.</div>
+      <p style="margin:0 0 40px;">Firma del Peticionario</p>
+      <div style="text-align:center;margin:0 0 6px;">
+        <span style="display:inline-block;width:200px;text-align:left;">El agente:</span>
+        <span style="display:inline-block;width:200px;text-align:left;">El Responsable:</span>
+      </div>
+      <div style="text-align:center;margin:0 0 40px;">
+        <span style="display:inline-block;width:200px;text-align:left;">Fdo.: ${primerFdo}</span>
+        <span style="display:inline-block;width:200px;text-align:left;">Fdo.: 959</span>
+      </div>
+      <div class="${cls}-footer">
+        Mod. APG 306/05 — Edificio de Servicios Múltiples – El Musel, s/n – 33212 Gijón - Principado de Asturias (España) —
+        Tel.+34 985 17 96 00 – www.puertogijon.es
+      </div>
+    </div>
+  `;
+}
+
+function formatDatetimeLocal(str){
+  if(!str) return '';
+  const [fecha, hora] = str.split('T');
+  const [y,m,d] = fecha.split('-');
+  const meses = ['','enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return `${parseInt(d)} de ${meses[parseInt(m)]} de ${y}, ${hora}`;
+}
+
+function construirDocumentoEntregaLlavesHTML(cls){
+  const primerFdo = escapeHtml(actual.firmantes[0]?.fdo || cfgValor('primerFdo') || '');
+  const nombre = escapeHtml(actual.elNombre || '');
+  const dni = escapeHtml(actual.elDni || '');
+  const empresa = escapeHtml(actual.elEmpresa || '');
+  const direccion = escapeHtml(actual.elDireccion || '');
+  const cantidad = escapeHtml(actual.elCantidad || '');
+  return `
+    <div class="${cls}-doc">
+      <div class="${cls}-header">
+        <div class="${cls}-logo-left"><img src="${CABECERA}" alt="cabecera"></div>
+        <div class="${cls}-logo-right"><img src="${LOGO}" alt="escudo"></div>
+      </div>
+      <p style="text-align:justify;margin:0 0 22px;">${nombre} con DNI ${dni}, en representación de ${empresa}, con domicilio en ${direccion}.</p>
+      <p style="text-align:justify;margin:0 0 22px;">La entidad anteriormente indicada, por medio de su representante, hace entrega al departamento de Policía Portuaria, de ${cantidad} llaves de acceso al local.</p>
+      <div style="text-align:right;margin:0 0 20px;">El Musel, ${fechaLarga(actual.fecha)}.</div>
+      <div style="text-align:center;margin:0 0 6px;">
+        <span style="display:inline-block;width:200px;text-align:left;">El agente:</span>
+        <span style="display:inline-block;width:200px;text-align:left;">El representante:</span>
+      </div>
+      <div style="text-align:center;margin:0 0 40px;">
+        <span style="display:inline-block;width:200px;text-align:left;">Fdo.: ${primerFdo}</span>
+        <span style="display:inline-block;width:200px;text-align:left;">Fdo.:</span>
+      </div>
+      <div class="${cls}-footer">
+        Mod. APG 306/05 — Edificio de Servicios Múltiples – El Musel, s/n – 33212 Gijón - Principado de Asturias (España) —
+        Tel.+34 985 17 96 00 – www.puertogijon.es
+      </div>
+    </div>
+  `;
+}
+
+function construirDocumentoReparacionHTML(cls){
+  const primerFdo = escapeHtml(actual.firmantes[0]?.fdo || cfgValor('primerFdo') || '');
+  const nombre = escapeHtml(actual.rpNombre || '');
+  const dni = escapeHtml(actual.rpDni || '');
+  const empresa = escapeHtml(actual.rpEmpresa || '');
+  const cif = escapeHtml(actual.rpCif || '');
+  const tlf = escapeHtml(actual.rpTlf || '');
+  const poblacion = escapeHtml(actual.rpPoblacion || '');
+  const cp = escapeHtml(actual.rpCp || '');
+  const empresaRep = escapeHtml(actual.rpEmpresaRep || '');
+  const cifRep = escapeHtml(actual.rpCifRep || '');
+  const tlfRep = escapeHtml(actual.rpTlfRep || '');
+  const maquinaria = escapeHtml(actual.rpMaquinaria || '');
+  const modelo = escapeHtml(actual.rpModelo || '');
+  const causa = escapeHtml(actual.rpCausa || '');
+  const trabajos = escapeHtml(actual.rpTrabajos || '');
+  const medios = escapeHtml(actual.rpMedios || '');
+  const fechaFin = escapeHtml(actual.rpFechaFin || '');
+  return `
+    <div class="${cls}-doc">
+      <div class="${cls}-header">
+        <div class="${cls}-logo-left"><img src="${CABECERA}" alt="cabecera"></div>
+        <div class="${cls}-logo-right"><img src="${LOGO}" alt="escudo"></div>
+      </div>
+      <div style="font-weight:700;margin-bottom:6px;">SOLICITUD DE AUTORIZACIÓN PARA REPARACIÓN DE MAQUINARIA</div>
+      <p style="margin:0 0 18px;font-style:italic;">Según punto 2 de la Norma Ambiental de Mantenimiento de Maquinaria.</p>
+      <div style="font-weight:700;margin-bottom:8px;">SOLICITANTE DE LA AUTORIZACIÓN Y EMPRESA RESPONSABLE DE LA MAQUINARIA</div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:18px;font-size:12px;">
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;width:50%;">Nombre y Apellidos del Solicitante</td><td style="padding:4px 8px;border:1px solid #999;">${nombre}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">DNI/NIF</td><td style="padding:4px 8px;border:1px solid #999;">${dni}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Razón Social de la Entidad</td><td style="padding:4px 8px;border:1px solid #999;">${empresa}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">CIF/NIF</td><td style="padding:4px 8px;border:1px solid #999;">${cif}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Teléfono</td><td style="padding:4px 8px;border:1px solid #999;">${tlf}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Población</td><td style="padding:4px 8px;border:1px solid #999;">${poblacion}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Código Postal</td><td style="padding:4px 8px;border:1px solid #999;">${cp}</td></tr>
+      </table>
+      <div style="font-weight:700;margin-bottom:8px;">EMPRESA QUE REALIZARÁ LOS TRABAJOS</div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:18px;font-size:12px;">
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;width:50%;">Razón Social de la Entidad</td><td style="padding:4px 8px;border:1px solid #999;">${empresaRep}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">CIF/NIF</td><td style="padding:4px 8px;border:1px solid #999;">${cifRep}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Teléfono</td><td style="padding:4px 8px;border:1px solid #999;">${tlfRep}</td></tr>
+      </table>
+      <div style="font-weight:700;margin-bottom:8px;">TIPO DE AVERÍA</div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:18px;font-size:12px;">
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;width:50%;">Tipo de Maquinaria</td><td style="padding:4px 8px;border:1px solid #999;">${maquinaria}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Modelo</td><td style="padding:4px 8px;border:1px solid #999;">${modelo}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Causa que imposibilita su desplazamiento</td><td style="padding:4px 8px;border:1px solid #999;">${causa}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Trabajos a realizar</td><td style="padding:4px 8px;border:1px solid #999;">${trabajos}</td></tr>
+        <tr><td style="padding:4px 8px;border:1px solid #999;font-weight:700;">Medios Anticontaminación</td><td style="padding:4px 8px;border:1px solid #999;">${medios}</td></tr>
+      </table>
+      <p style="margin:0 0 30px;">Fecha estimada de finalización: <strong>${fechaFin}</strong></p>
+      <p style="margin:0 0 30px;">Firma del Peticionario</p>
+      <div style="font-weight:700;margin-bottom:8px;">AUTORIZACIÓN</div>
+      <p style="text-align:justify;margin:0 0 16px;">Por la presente, se autoriza la reparación de la Maquinaria, situada en zona Ampliación comenzando el día de hoy, habiendo aceptado todas las condiciones que se detallan al dorso del impreso.</p>
+      <p style="margin:0 0 30px;">En Gijón, a ${fechaLarga(actual.fecha)}</p>
+      <p style="margin:0 0 40px;font-weight:700;">AGENTE</p>
+      <p style="margin:0 0 40px;">Fdo.: ${primerFdo}</p>
+      <div class="${cls}-footer">
+        Mod. APG 306/05 — Edificio de Servicios Múltiples – El Musel, s/n – 33212 Gijón - Principado de Asturias (España) —
+        Tel.+34 985 17 96 00 – www.puertogijon.es
+      </div>
+    </div>
+    <div class="${cls}-doc" style="page-break-before:always;">
+      <div class="${cls}-header">
+        <div class="${cls}-logo-left"><img src="${CABECERA}" alt="cabecera"></div>
+        <div class="${cls}-logo-right"><img src="${LOGO}" alt="escudo"></div>
+      </div>
+      <div style="font-weight:700;margin-bottom:14px;">OBLIGACIONES</div>
+      <p style="text-align:justify;margin:0 0 12px;">1º El titular de esta Autorización tendrá que operar con todo tipo de precauciones y medidas adecuadas a la actividad y trabajos que se lleven a cabo, dando cumplimiento en todo momento a las normativas ambientales aprobadas por la APG y en concreto, a las Normas de Mantenimiento publicadas.</p>
+      <p style="text-align:justify;margin:0 0 12px;">2º Una vez realizados los trabajos objeto de esta Autorización deberá notificarse, por parte del solicitante, la finalización de los mismos.</p>
+      <p style="text-align:justify;margin:0 0 12px;">3º El personal mantenedor deberá contar con dicha Autorización, que deberá exhibir en caso de ser requerido por el personal de la Autoridad Portuaria.</p>
+      <p style="text-align:justify;margin:0 0 20px;">4º En todo caso, el titular de la Autorización estará sujeto a lo dispuesto en el Reglamento de Servicio, Policía y Régimen del Puerto.</p>
+      <div style="font-weight:700;margin-bottom:8px;">QUEDA EXPRESAMENTE PROHIBIDO:</div>
+      <p style="text-align:justify;margin:0 0 12px;">5º La realización de cualquier trabajo de este tipo sin Autorización expresa de la APG.</p>
+      <p style="text-align:justify;margin:0 0 12px;">6º La realización de trabajos no recogidos en esta Autorización.</p>
+      <p style="text-align:justify;margin:0 0 12px;">7º La realización de trabajos sobre suelos no impermeabilizados en el ámbito del Dominio Portuario.</p>
+      <p style="text-align:justify;margin:0 0 20px;">8º El abandono en el Dominio Público Portuario de residuos, piezas o material anticontaminación utilizados durante los trabajos de intervención, objeto de dicha Autorización.</p>
+      <p style="text-align:justify;margin:0 0 0;font-style:italic;">El incumplimiento de las presentes condiciones será objeto de sanción por parte de la Autoridad Portuaria de Gijón conforme a los artículos 305 a 316 del Real Decreto Legislativo 2/2011, e 5 de septiembre, por el que se aprueba el Texto Refundido de la Ley de Puertos del Estado y de la Marina Mercante.</p>
+      <div class="${cls}-footer">
+        Mod. APG 306/05 — Edificio de Servicios Múltiples – El Musel, s/n – 33212 Gijón - Principado de Asturias (España) —
+        Tel.+34 985 17 96 00 – www.puertogijon.es
+      </div>
+    </div>
+  `;
+}
+
 function construirDocumentoHTML(logoImgTag, numBoxClass, badgeClass, cls){
   leerFormAEstado();
-  const hechosParrafos = (actual.hechos||'').split(/\n\s*\n/).filter(p=>p.trim().length)
-    .map(p=>`<p>${escapeHtml(p.trim()).replace(/\n/g,'<br>')}</p>`).join('');
-  const firmasHTML = actual.firmantes.map(f=>`
+  if(actual.tipo === 'ratificacion'){
+    return construirDocumentoRatificacionHTML(cls);
+  }
+  if(actual.tipo === 'autorizacion_redes'){
+    return construirDocumentoAutorizacionRedesHTML(cls);
+  }
+  if(actual.tipo === 'entrega_llaves'){
+    return construirDocumentoEntregaLlavesHTML(cls);
+  }
+  if(actual.tipo === 'reparacion_maquinaria'){
+    return construirDocumentoReparacionHTML(cls);
+  }
+  const hechosHTML = (actual.hechos||'').trim();
+  const firmasHTML = actual.firmantes.filter(f=>f.activo !== false).map(f=>`
     <div class="${cls}-firma">
       <div class="rol">${escapeHtml(f.rol||'')}${f.rol?':':''}</div>
       <div class="fdo">Fdo.: ${escapeHtml(f.fdo||'')}</div>
@@ -623,12 +1201,14 @@ function construirDocumentoHTML(logoImgTag, numBoxClass, badgeClass, cls){
       <div class="${cls}-header">
         <div class="${cls}-logo-left"><img src="${CABECERA}" alt="cabecera"></div>
         <div class="${cls}-informe-box">
+          ${cfgValor('mostrarCabeceraInforme') ? `
           <div class="titulo">INFORME</div>
           <div class="${cls}-num-boxes">
             N° ${boxesHTML(actual.numero, numBoxClass)}
             &nbsp;/&nbsp;${boxesHTML(actual.anio, numBoxClass)}
             &nbsp;Rev&nbsp;${boxesHTML(actual.rev||'0', numBoxClass)}
           </div>
+          ` : ''}
         </div>
         <div class="${cls}-logo-right">${logoImgTag}</div>
       </div>
@@ -637,7 +1217,7 @@ function construirDocumentoHTML(logoImgTag, numBoxClass, badgeClass, cls){
         <div><b>Asunto:</b> ${escapeHtml(actual.asunto)}</div>
       </div>
       <div class="${cls}-hechos-title">HECHOS</div>
-      <div class="${cls}-hechos">${hechosParrafos || '<p style="color:#999;">(Sin redactar)</p>'}</div>
+      <div class="${cls}-hechos">${hechosHTML || '<p style="color:#999;">(Sin redactar)</p>'}</div>
       <div class="${cls}-fecha-lugar">${escapeHtml(actual.lugar)}, a ${fechaLarga(actual.fecha)}</div>
       <div class="${cls}-firmas">${firmasHTML}</div>
       <div class="${cls}-footer">
@@ -674,7 +1254,6 @@ function camposFormulario(){
     document.getElementById('f-rev'),
     document.getElementById('f-de'),
     document.getElementById('f-asunto'),
-    document.getElementById('f-hechos'),
     document.getElementById('f-lugar'),
     document.getElementById('f-fecha'),
     ...document.querySelectorAll('.firmante-rol'),
@@ -684,6 +1263,10 @@ function camposFormulario(){
 }
 function bloquearFormulario(){
   camposFormulario().forEach(el=>{ if(el) el.disabled = true; });
+  const editorHechos = document.getElementById('f-hechos');
+  if(editorHechos) editorHechos.setAttribute('contenteditable','false');
+  const toolbarHechos = document.getElementById('hechos-toolbar');
+  if(toolbarHechos) toolbarHechos.classList.add('rte-disabled');
   const btn = document.getElementById('btn-guardar');
   btn.textContent = '✏️ Editar informe';
   btn.classList.remove('ios-btn-primary');
@@ -692,8 +1275,12 @@ function bloquearFormulario(){
 }
 function desbloquearFormulario(){
   camposFormulario().forEach(el=>{ if(el) el.disabled = false; });
+  const editorHechos = document.getElementById('f-hechos');
+  if(editorHechos) editorHechos.setAttribute('contenteditable','true');
+  const toolbarHechos = document.getElementById('hechos-toolbar');
+  if(toolbarHechos) toolbarHechos.classList.remove('rte-disabled');
   const btn = document.getElementById('btn-guardar');
-  btn.textContent = informeActualId ? '💾 Guardar cambios (PDF)' : '💾 Guardar (genera PDF)';
+  btn.textContent = informeActualId ? '💾 Guardar cambios' : '💾 Guardar';
   btn.classList.remove('ios-btn-secondary','light');
   btn.classList.add('ios-btn-primary');
   btn.onclick = guardarInforme;
@@ -712,7 +1299,17 @@ function guardarLista(){ localStorage.setItem('pp_informes', JSON.stringify(info
 
 async function guardarInforme(){
   leerFormAEstado();
-  if(!actual.numero){ toast('⚠️ Indica el número de informe'); return; }
+  if(actual.tipo === 'ratificacion'){
+    if(!actual.ratifExp || !actual.ratifAgente){ toast('⚠️ Indica el n.º de boletín y el n.º de agente'); return; }
+  } else if(actual.tipo === 'autorizacion_redes'){
+    if(!actual.arNombre || !actual.arDni || !actual.arPesquero || !actual.arFechaInicio || !actual.arFechaFin){ toast('⚠️ Completa todos los campos obligatorios'); return; }
+  } else if(actual.tipo === 'entrega_llaves'){
+    if(!actual.elNombre || !actual.elDni || !actual.elEmpresa || !actual.elDireccion || !actual.elCantidad){ toast('⚠️ Completa todos los campos obligatorios'); return; }
+  } else if(actual.tipo === 'reparacion_maquinaria'){
+    if(!actual.rpNombre || !actual.rpEmpresa || !actual.rpMaquinaria){ toast('⚠️ Completa al menos nombre, empresa y maquinaria'); return; }
+  } else {
+    if(!actual.numero){ toast('⚠️ Indica el número de informe'); return; }
+  }
   const idx = informes.findIndex(i=>i.id===actual.id);
   actual.actualizado = Date.now();
   if(idx>=0){ informes[idx] = actual; } else { informes.push(actual); }
@@ -721,22 +1318,372 @@ async function guardarInforme(){
   renderListaInformes();
   document.getElementById('btn-eliminar').style.display='inline-flex';
   bloquearFormulario();
-  toast('✅ Informe guardado');
-  await generarPDFArchivo();
+  toast(actual.tipo === 'ratificacion' ? '✅ Ratificación guardada' : '✅ Informe guardado');
 }
 
 function nuevoInforme(){
-  actual = estadoVacio();
+  const cont = document.getElementById('modal-container');
+  cont.innerHTML = `
+    <div class="ios-modal-overlay" id="modal-overlay">
+      <div class="ios-modal" style="max-width:400px;">
+        <h3>➕ Nuevo documento</h3>
+        <p style="margin-bottom:14px;">¿Qué tipo de documento deseas crear?</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <button class="ios-btn ios-btn-primary" style="justify-content:flex-start;" onclick="crearInformeNuevo()">📄 Informe</button>
+          <button class="ios-btn ios-btn-secondary light" style="justify-content:flex-start;" onclick="abrirModalNuevaRatificacion()">🖋️ Ratificación de denuncia</button>
+          <button class="ios-btn ios-btn-secondary light" style="justify-content:flex-start;" onclick="abrirModalNuevaAutorizacionRedes()">🎣 Autorización Redes</button>
+          <button class="ios-btn ios-btn-secondary light" style="justify-content:flex-start;" onclick="abrirModalNuevaEntregaLlaves()">🔑 Entrega de llaves</button>
+          <button class="ios-btn ios-btn-secondary light" style="justify-content:flex-start;" onclick="abrirModalNuevaReparacion()">🔧 Reparación de maquinaria</button>
+        </div>
+        <div class="btn-row" style="display:flex;justify-content:flex-end;margin-top:14px;">
+          <button class="ios-btn ios-btn-secondary light" onclick="cerrarModal()">Cancelar</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
+}
+
+function crearInformeNuevo(){
+  cerrarModal();
+  actual = estadoVacio('informe');
   informeActualId = null;
   cargarFormDesdeEstado(false);
   cambiarTab('editar');
   toast('📝 Nuevo informe');
 }
 
+function abrirModalNuevaRatificacion(){
+  const cont = document.getElementById('modal-container');
+  cont.innerHTML = `
+    <div class="ios-modal-overlay" id="modal-overlay">
+      <div class="ios-modal" style="max-width:440px;">
+        <h3>🖋️ Ratificación de denuncia</h3>
+        <p style="margin-bottom:14px;">Indica los datos del boletín de denuncia a ratificar.</p>
+        <div class="field">
+          <label class="ios-label-field">N.º de boletín de denuncia</label>
+          <input type="text" class="ios-input" id="rf-exp" placeholder="2026-00000000">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">N.º de agente</label>
+          <input type="text" class="ios-input" id="rf-agente" placeholder="959" value="${cfgValor('primerFdo') || ''}">
+        </div>
+        <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
+          <button class="ios-btn ios-btn-primary" id="rf-crear-btn">Crear</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('rf-crear-btn').onclick = ()=>{
+    const exp = document.getElementById('rf-exp').value.trim();
+    const agente = document.getElementById('rf-agente').value.trim();
+    if(!exp || !agente){ toast('⚠️ Completa ambos campos'); return; }
+    crearRatificacionNueva(exp, agente);
+  };
+  document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
+}
+
+function crearRatificacionNueva(exp, agente){
+  cerrarModal();
+  actual = estadoVacio('ratificacion');
+  actual.ratifExp = exp;
+  actual.ratifAgente = agente;
+  informeActualId = null;
+  cargarFormDesdeEstado(false);
+  cambiarTab('editar');
+  toast('📝 Nueva ratificación');
+}
+
+function abrirModalNuevaAutorizacionRedes(){
+  const cont = document.getElementById('modal-container');
+  cont.innerHTML = `
+    <div class="ios-modal-overlay" id="modal-overlay">
+      <div class="ios-modal" style="max-width:440px;">
+        <h3>🎣 Autorización Redes</h3>
+        <p style="margin-bottom:14px;">Indica los datos para la autorización de redes.</p>
+        <div class="field">
+          <label class="ios-label-field">Nombre</label>
+          <input type="text" class="ios-input" id="ar-nombre" placeholder="Nombre completo">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">DNI</label>
+          <input type="text" class="ios-input" id="ar-dni" placeholder="72228435-V">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Pesquero</label>
+          <input type="text" class="ios-input" id="ar-pesquero" placeholder="Nombre del pesquero">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Fecha y hora inicio</label>
+          <input type="datetime-local" class="ios-input" id="ar-fecha-inicio">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Fecha y hora fin</label>
+          <input type="datetime-local" class="ios-input" id="ar-fecha-fin">
+        </div>
+        <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
+          <button class="ios-btn ios-btn-primary" id="ar-crear-btn">Crear</button>
+        </div>
+      </div>
+    </div>`;
+  const ahora = new Date();
+  const horaInicio = new Date(ahora); horaInicio.setHours(8,0,0,0);
+  const horaFin = new Date(ahora); horaFin.setHours(20,0,0,0);
+  document.getElementById('ar-fecha-inicio').value = toLocalDatetime(horaInicio);
+  document.getElementById('ar-fecha-fin').value = toLocalDatetime(horaFin);
+  document.getElementById('ar-crear-btn').onclick = ()=>{
+    const nombre = document.getElementById('ar-nombre').value.trim();
+    const dni = document.getElementById('ar-dni').value.trim();
+    const pesquero = document.getElementById('ar-pesquero').value.trim();
+    const fechaInicio = document.getElementById('ar-fecha-inicio').value;
+    const fechaFin = document.getElementById('ar-fecha-fin').value;
+    if(!nombre || !dni || !pesquero || !fechaInicio || !fechaFin){ toast('⚠️ Completa todos los campos'); return; }
+    crearAutorizacionRedesNueva({nombre, dni, pesquero, fechaInicio, fechaFin});
+  };
+  document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
+}
+
+function toLocalDatetime(d){
+  const pad = n => String(n).padStart(2,'0');
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function crearAutorizacionRedesNueva(datos){
+  cerrarModal();
+  actual = estadoVacio('autorizacion_redes');
+  actual.arNombre = datos.nombre;
+  actual.arDni = datos.dni;
+  actual.arPesquero = datos.pesquero;
+  actual.arFechaInicio = datos.fechaInicio;
+  actual.arFechaFin = datos.fechaFin;
+  informeActualId = null;
+  cargarFormDesdeEstado(false);
+  cambiarTab('editar');
+  toast('📝 Nueva autorización redes');
+}
+
+function abrirModalNuevaEntregaLlaves(){
+  const cont = document.getElementById('modal-container');
+  cont.innerHTML = `
+    <div class="ios-modal-overlay" id="modal-overlay">
+      <div class="ios-modal" style="max-width:440px;">
+        <h3>🔑 Entrega de llaves</h3>
+        <p style="margin-bottom:14px;">Indica los datos para la entrega de llaves.</p>
+        <div class="field">
+          <label class="ios-label-field">Nombre</label>
+          <input type="text" class="ios-input" id="el-nombre" placeholder="Nombre completo">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">DNI</label>
+          <input type="text" class="ios-input" id="el-dni" placeholder="72228435-V">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Empresa</label>
+          <input type="text" class="ios-input" id="el-empresa" placeholder="Nombre de la empresa">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Dirección</label>
+          <input type="text" class="ios-input" id="el-direccion" placeholder="Domicilio de la empresa">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Cantidad de llaves</label>
+          <input type="text" class="ios-input" id="el-cantidad" placeholder="Ej: 2">
+        </div>
+        <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
+          <button class="ios-btn ios-btn-primary" id="el-crear-btn">Crear</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('el-crear-btn').onclick = ()=>{
+    const nombre = document.getElementById('el-nombre').value.trim();
+    const dni = document.getElementById('el-dni').value.trim();
+    const empresa = document.getElementById('el-empresa').value.trim();
+    const direccion = document.getElementById('el-direccion').value.trim();
+    const cantidad = document.getElementById('el-cantidad').value.trim();
+    if(!nombre || !dni || !empresa || !direccion || !cantidad){ toast('⚠️ Completa todos los campos'); return; }
+    crearEntregaLlavesNueva({nombre, dni, empresa, direccion, cantidad});
+  };
+  document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
+}
+
+function crearEntregaLlavesNueva(datos){
+  cerrarModal();
+  actual = estadoVacio('entrega_llaves');
+  actual.elNombre = datos.nombre;
+  actual.elDni = datos.dni;
+  actual.elEmpresa = datos.empresa;
+  actual.elDireccion = datos.direccion;
+  actual.elCantidad = datos.cantidad;
+  informeActualId = null;
+  cargarFormDesdeEstado(false);
+  cambiarTab('editar');
+  toast('📝 Nueva entrega de llaves');
+}
+
+function abrirModalNuevaReparacion(){
+  const cont = document.getElementById('modal-container');
+  cont.innerHTML = `
+    <div class="ios-modal-overlay" id="modal-overlay">
+      <div class="ios-modal" style="max-width:440px;max-height:80vh;overflow-y:auto;">
+        <h3>🔧 Reparación de maquinaria</h3>
+        <p style="margin-bottom:14px;">Solicitud de autorización para reparación de maquinaria.</p>
+        <div class="section-title"><span>Solicitante</span></div>
+        <div class="field">
+          <label class="ios-label-field">Nombre</label>
+          <input type="text" class="ios-input" id="rp-nombre" placeholder="Nombre y apellidos">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">DNI/NIF</label>
+          <input type="text" class="ios-input" id="rp-dni" placeholder="12345678A">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Empresa (Razón Social)</label>
+          <input type="text" class="ios-input" id="rp-empresa" placeholder="Nombre de la empresa">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">CIF</label>
+          <input type="text" class="ios-input" id="rp-cif" placeholder="B12345678">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Teléfono</label>
+          <input type="text" class="ios-input" id="rp-tlf" placeholder="985 123 456">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Población</label>
+          <input type="text" class="ios-input" id="rp-poblacion" placeholder="Gijón">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Código Postal</label>
+          <input type="text" class="ios-input" id="rp-cp" placeholder="33212">
+        </div>
+        <div class="section-title" style="margin-top:8px;"><span>Empresa de reparación</span></div>
+        <div class="field">
+          <label class="ios-label-field">Razón Social</label>
+          <input type="text" class="ios-input" id="rp-empresa-rep" placeholder="Empresa que realizará los trabajos">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">CIF</label>
+          <input type="text" class="ios-input" id="rp-cif-rep" placeholder="CIF empresa reparadora">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Teléfono</label>
+          <input type="text" class="ios-input" id="rp-tlf-rep" placeholder="Teléfono empresa reparadora">
+        </div>
+        <div class="section-title" style="margin-top:8px;"><span>Avería</span></div>
+        <div class="field">
+          <label class="ios-label-field">Tipo de maquinaria</label>
+          <input type="text" class="ios-input" id="rp-maquinaria" placeholder="Tipo de maquinaria">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Modelo</label>
+          <input type="text" class="ios-input" id="rp-modelo" placeholder="Modelo">
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Causa</label>
+          <textarea class="ios-input" id="rp-causa" rows="2" placeholder="Causa que imposibilita su desplazamiento"></textarea>
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Trabajos a realizar</label>
+          <textarea class="ios-input" id="rp-trabajos" rows="2" placeholder="Trabajos a realizar"></textarea>
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Medios anticontaminación</label>
+          <textarea class="ios-input" id="rp-medios" rows="2" placeholder="Medios anticontaminación"></textarea>
+        </div>
+        <div class="field">
+          <label class="ios-label-field">Fecha estimada de finalización</label>
+          <input type="date" class="ios-input" id="rp-fecha-fin">
+        </div>
+        <div class="btn-row" style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+          <button class="ios-btn ios-btn-secondary light" onclick="nuevoInforme()">⬅️ Atrás</button>
+          <button class="ios-btn ios-btn-primary" id="rp-crear-btn">Crear</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('rp-crear-btn').onclick = ()=>{
+    const datos = {
+      nombre: document.getElementById('rp-nombre').value.trim(),
+      dni: document.getElementById('rp-dni').value.trim(),
+      empresa: document.getElementById('rp-empresa').value.trim(),
+      cif: document.getElementById('rp-cif').value.trim(),
+      tlf: document.getElementById('rp-tlf').value.trim(),
+      poblacion: document.getElementById('rp-poblacion').value.trim(),
+      cp: document.getElementById('rp-cp').value.trim(),
+      empresaRep: document.getElementById('rp-empresa-rep').value.trim(),
+      cifRep: document.getElementById('rp-cif-rep').value.trim(),
+      tlfRep: document.getElementById('rp-tlf-rep').value.trim(),
+      maquinaria: document.getElementById('rp-maquinaria').value.trim(),
+      modelo: document.getElementById('rp-modelo').value.trim(),
+      causa: document.getElementById('rp-causa').value.trim(),
+      trabajos: document.getElementById('rp-trabajos').value.trim(),
+      medios: document.getElementById('rp-medios').value.trim(),
+      fechaFin: document.getElementById('rp-fecha-fin').value
+    };
+    if(!datos.nombre || !datos.empresa || !datos.maquinaria){ toast('⚠️ Completa al menos nombre, empresa y maquinaria'); return; }
+    crearReparacionNueva(datos);
+  };
+  document.getElementById('modal-overlay').onclick = (e)=>{ if(e.target.id==='modal-overlay') cerrarModal(); };
+}
+
+function crearReparacionNueva(datos){
+  cerrarModal();
+  actual = estadoVacio('reparacion_maquinaria');
+  actual.rpNombre = datos.nombre;
+  actual.rpDni = datos.dni;
+  actual.rpEmpresa = datos.empresa;
+  actual.rpCif = datos.cif;
+  actual.rpTlf = datos.tlf;
+  actual.rpPoblacion = datos.poblacion;
+  actual.rpCp = datos.cp;
+  actual.rpEmpresaRep = datos.empresaRep;
+  actual.rpCifRep = datos.cifRep;
+  actual.rpTlfRep = datos.tlfRep;
+  actual.rpMaquinaria = datos.maquinaria;
+  actual.rpModelo = datos.modelo;
+  actual.rpCausa = datos.causa;
+  actual.rpTrabajos = datos.trabajos;
+  actual.rpMedios = datos.medios;
+  actual.rpFechaFin = datos.fechaFin;
+  informeActualId = null;
+  cargarFormDesdeEstado(false);
+  cambiarTab('editar');
+  toast('📝 Nueva reparación de maquinaria');
+}
+
 function cargarInforme(id){
   const inf = informes.find(i=>i.id===id);
   if(!inf) return;
   actual = JSON.parse(JSON.stringify(inf));
+  if(!actual.tipo) actual.tipo = 'informe';
+  if(actual.ratifExp === undefined) actual.ratifExp = '';
+  if(actual.ratifAgente === undefined) actual.ratifAgente = '';
+  if(actual.arNombre === undefined) actual.arNombre = '';
+  if(actual.arDni === undefined) actual.arDni = '';
+  if(actual.arPesquero === undefined) actual.arPesquero = '';
+  if(actual.arFechaInicio === undefined) actual.arFechaInicio = '';
+  if(actual.arFechaFin === undefined) actual.arFechaFin = '';
+  if(actual.elNombre === undefined) actual.elNombre = '';
+  if(actual.elDni === undefined) actual.elDni = '';
+  if(actual.elEmpresa === undefined) actual.elEmpresa = '';
+  if(actual.elDireccion === undefined) actual.elDireccion = '';
+  if(actual.elCantidad === undefined) actual.elCantidad = '';
+  if(actual.rpNombre === undefined) actual.rpNombre = '';
+  if(actual.rpDni === undefined) actual.rpDni = '';
+  if(actual.rpEmpresa === undefined) actual.rpEmpresa = '';
+  if(actual.rpCif === undefined) actual.rpCif = '';
+  if(actual.rpTlf === undefined) actual.rpTlf = '';
+  if(actual.rpPoblacion === undefined) actual.rpPoblacion = '';
+  if(actual.rpCp === undefined) actual.rpCp = '';
+  if(actual.rpEmpresaRep === undefined) actual.rpEmpresaRep = '';
+  if(actual.rpCifRep === undefined) actual.rpCifRep = '';
+  if(actual.rpTlfRep === undefined) actual.rpTlfRep = '';
+  if(actual.rpMaquinaria === undefined) actual.rpMaquinaria = '';
+  if(actual.rpModelo === undefined) actual.rpModelo = '';
+  if(actual.rpCausa === undefined) actual.rpCausa = '';
+  if(actual.rpTrabajos === undefined) actual.rpTrabajos = '';
+  if(actual.rpMedios === undefined) actual.rpMedios = '';
+  if(actual.rpFechaFin === undefined) actual.rpFechaFin = '';
   if(actual.firmantes){
     actual.firmantes.forEach(f=>{ if(f.activo === undefined) f.activo = true; });
   }
@@ -756,7 +1703,7 @@ function confirmarEliminar(){
       informes = informes.filter(i=>i.id!==informeActualId);
       guardarLista();
       renderListaInformes();
-      nuevoInforme();
+      crearInformeNuevo();
       toast('🗑️ Informe eliminado');
     }
   });
@@ -769,13 +1716,18 @@ function renderListaInformes(){
   let filtrados = informes;
   if(q){
     filtrados = informes.filter(i=>{
-      const numCompleto = `${i.numero||''}/${i.anio||''}`.toLowerCase();
-      return numCompleto.includes(q) ||
-        (i.numero||'').toLowerCase().includes(q) ||
-        (i.asunto||'').toLowerCase().includes(q) ||
-        (i.de||'').toLowerCase().includes(q) ||
-        (i.lugar||'').toLowerCase().includes(q) ||
-        (i.hechos||'').toLowerCase().includes(q);
+      const campos = [
+        i.numero, i.anio, i.rev, i.de, i.asunto, i.lugar, i.fecha, i.hechos,
+        i.ratifExp, i.ratifAgente,
+        i.arNombre, i.arDni, i.arPesquero, i.arFechaInicio, i.arFechaFin,
+        i.elNombre, i.elDni, i.elEmpresa, i.elDireccion, i.elCantidad,
+        i.rpNombre, i.rpDni, i.rpEmpresa, i.rpCif, i.rpTlf,
+        i.rpPoblacion, i.rpCp, i.rpEmpresaRep, i.rpCifRep, i.rpTlfRep,
+        i.rpMaquinaria, i.rpModelo, i.rpCausa, i.rpTrabajos, i.rpMedios, i.rpFechaFin,
+        ...((i.firmantes||[]).flatMap(f=>[f.rol, f.fdo]))
+      ].map(v => (v||'').toString()).join(' ');
+      const texto = stripHtml(campos).toLowerCase();
+      return texto.includes(q);
     });
   }
 
@@ -791,13 +1743,51 @@ function renderListaInformes(){
   }
 
   const ordenados = [...filtrados].sort((a,b)=>(b.actualizado||b.creado)-(a.actualizado||a.creado));
-  cont.innerHTML = ordenados.map(i=>`
+  cont.innerHTML = ordenados.map(i=>{
+    if(i.tipo === 'ratificacion'){
+      return `
+    <div class="informe-item ${i.id===informeActualId?'active':''}" onclick="cargarInforme('${i.id}')">
+      <div class="num">🖋️ Ratificación ${escapeHtml(i.ratifExp||'')}</div>
+      <div class="asunto">Agente n.º ${escapeHtml(i.ratifAgente||'')}</div>
+      <div class="fecha">${escapeHtml(i.lugar||'')} · ${fechaLarga(i.fecha)}</div>
+    </div>
+  `;
+    }
+    if(i.tipo === 'autorizacion_redes'){
+      return `
+    <div class="informe-item ${i.id===informeActualId?'active':''}" onclick="cargarInforme('${i.id}')">
+      <div class="num">🎣 Autorización Redes</div>
+      <div class="asunto">Pesquero: ${escapeHtml(i.arPesquero||'')} · ${escapeHtml(i.arNombre||'')}</div>
+      <div class="fecha">${escapeHtml(i.lugar||'')} · ${fechaLarga(i.fecha)}</div>
+    </div>
+  `;
+    }
+    if(i.tipo === 'entrega_llaves'){
+      return `
+    <div class="informe-item ${i.id===informeActualId?'active':''}" onclick="cargarInforme('${i.id}')">
+      <div class="num">🔑 Entrega de llaves</div>
+      <div class="asunto">${escapeHtml(i.elNombre||'')} · ${escapeHtml(i.elEmpresa||'')}</div>
+      <div class="fecha">${escapeHtml(i.lugar||'')} · ${fechaLarga(i.fecha)}</div>
+    </div>
+  `;
+    }
+    if(i.tipo === 'reparacion_maquinaria'){
+      return `
+    <div class="informe-item ${i.id===informeActualId?'active':''}" onclick="cargarInforme('${i.id}')">
+      <div class="num">🔧 Reparación maquinaria</div>
+      <div class="asunto">${escapeHtml(i.rpMaquinaria||'')} · ${escapeHtml(i.rpEmpresa||'')}</div>
+      <div class="fecha">${escapeHtml(i.lugar||'')} · ${fechaLarga(i.fecha)}</div>
+    </div>
+  `;
+    }
+    return `
     <div class="informe-item ${i.id===informeActualId?'active':''}" onclick="cargarInforme('${i.id}')">
       <div class="num">Nº ${escapeHtml(i.numero||'----')}/${escapeHtml(i.anio||'--')} Rev ${escapeHtml(i.rev||'0')}</div>
       <div class="asunto">${escapeHtml(i.asunto || 'Sin asunto')}</div>
       <div class="fecha">${escapeHtml(i.lugar||'')} · ${fechaLarga(i.fecha)}</div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 /* ===================== MODAL ===================== */
@@ -830,11 +1820,17 @@ function ocultarCarga(){
 
 /* ===================== IMPRESIÓN / PDF ===================== */
 function nombreArchivoInforme(){
-  const numero = (actual.numero || '0000').padStart(4,'0');
-  const anio = actual.anio || anioActualCorto();
-  const rev = actual.rev || '0';
-  const asunto = (actual.asunto || 'SIN ASUNTO').trim();
-  let nombre = `Informe ${numero}-${anio} Rev.${rev} ${asunto}`;
+  let nombre;
+  if(actual.tipo === 'ratificacion'){
+    const exp = (actual.ratifExp || 'SIN-EXPEDIENTE').trim();
+    nombre = `Ratificacion_boletin_denuncia_${exp}`;
+  } else {
+    const numero = (actual.numero || '0000').padStart(4,'0');
+    const anio = actual.anio || anioActualCorto();
+    const rev = actual.rev || '0';
+    const asunto = (actual.asunto || 'SIN ASUNTO').trim();
+    nombre = `Informe ${numero}-${anio} Rev.${rev} ${asunto}`;
+  }
   // Sanitiza caracteres no válidos en nombres de archivo (p.ej. la barra "/")
   nombre = nombre.replace(/[\\/:*?"<>|]+/g,'-').replace(/\s+/g,' ').trim();
   return nombre.slice(0,150);
@@ -947,7 +1943,27 @@ async function generarPDFArchivo(){
 
 function imprimirInforme(){
   leerFormAEstado();
-  if(!actual.numero || !actual.asunto){
+  if(actual.tipo === 'ratificacion'){
+    if(!actual.ratifExp || !actual.ratifAgente){
+      toast('⚠️ Completa el n.º de boletín y el n.º de agente');
+      return;
+    }
+  } else if(actual.tipo === 'autorizacion_redes'){
+    if(!actual.arNombre || !actual.arDni || !actual.arPesquero || !actual.arFechaInicio || !actual.arFechaFin){
+      toast('⚠️ Completa todos los campos obligatorios');
+      return;
+    }
+  } else if(actual.tipo === 'entrega_llaves'){
+    if(!actual.elNombre || !actual.elDni || !actual.elEmpresa || !actual.elDireccion || !actual.elCantidad){
+      toast('⚠️ Completa todos los campos obligatorios');
+      return;
+    }
+  } else if(actual.tipo === 'reparacion_maquinaria'){
+    if(!actual.rpNombre || !actual.rpEmpresa || !actual.rpMaquinaria){
+      toast('⚠️ Completa al menos nombre, empresa y maquinaria');
+      return;
+    }
+  } else if(!actual.numero || !actual.asunto){
     toast('⚠️ Completa al menos número y asunto');
     return;
   }
