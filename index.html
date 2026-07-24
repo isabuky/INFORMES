@@ -1319,6 +1319,7 @@ async function guardarInforme(){
   document.getElementById('btn-eliminar').style.display='inline-flex';
   bloquearFormulario();
   toast(actual.tipo === 'ratificacion' ? '✅ Ratificación guardada' : '✅ Informe guardado');
+  await generarPDFArchivo();
 }
 
 function nuevoInforme(){
